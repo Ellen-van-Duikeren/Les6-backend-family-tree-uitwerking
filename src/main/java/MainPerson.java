@@ -1,40 +1,66 @@
+import java.util.Arrays;
 import java.util.List;
 
 public class MainPerson {
     public static void main(String[] args) {
-        Person panc = new Person("Panc", "van", "Duikeren", "M", 81); //person
-        Person ellen = new Person("Ellen", "van", "Duikeren", "F", 52); //child
-        Person emily = new Person("Emily", "van der", "Hidde", "F", 21);  //grandchild
-        Person nica = new Person("Nica", "van der", "Hidde", "F", 20); // grandchild
-        Pet kuifje = new Pet("Kuifje", 2, "cavia");
-        Pet haagh = new Pet("Haagh", 3, "cavia");
+        //arrange
+        Person person = new Person("John", "Doe", "M", 81); //person
+        Person child = new Person("Janie", "Doe", "F", 52); //child
+        Person grandChild1 = new Person("Richard", "Doe", "F", 21);  //grandchild
+        Person grandChild2 = new Person("Janie jr", "Doe", "F", 20); // grandchild
+        //act
+        person.addChild(child);
+        person.addGrandChildren(grandChild1);
+        person.addGrandChildren(grandChild2);
 
-        panc.addChild(ellen);
-        panc.addGrandChildren(emily);
-        panc.addGrandChildren(nica);
-        emily.addPet(kuifje);
-        nica.addPet(haagh);
-
+        //souts
         System.out.println("Head of the family:");
-        System.out.println(panc.getName() + " " + panc.getMiddleName() + " " + panc.getLastName() + ", sex: " + panc.getSex() + ", " + panc.getAge() + " years old.");
+        System.out.println(person.getName() + " " + person.getLastName() + ", sex: " + person.getSex() + ", " + person.getAge() + " years old.");
 
         System.out.println("\nChild:");
-        System.out.println(panc.getChildren().get(0).getName() + " " + panc.getChildren().get(0).getMiddleName() + " " + panc.getChildren().get(0).getLastName() + ", sex: " + panc.getChildren().get(0).getSex() + ", " + panc.getChildren().get(0).getAge() + " years old.");
-
-
+        System.out.println(person.getChildren().get(0).getName() + " " + person.getChildren().get(0).getLastName() + ", sex: " + person.getChildren().get(0).getSex() + ", " + person.getChildren().get(0).getAge() + " years old.");
 
         System.out.println("\nGrandchildren:");
-        for (int i = 0; i < panc.getGrandChildren().size(); i++) {
-            System.out.println(panc.getGrandChildren().get(i).getName() + " " + panc.getGrandChildren().get(i).getMiddleName() + " " + panc.getGrandChildren().get(i).getLastName() + ", sex: " + panc.getGrandChildren().get(i).getSex() + ", " + panc.getGrandChildren().get(i).getAge() + " years old.");
+        for (int i = 0; i < person.getGrandChildren().size(); i++) {
+            System.out.println(person.getGrandChildren().get(i).getName() + " " + person.getGrandChildren().get(i).getLastName() + ", sex: " + person.getGrandChildren().get(i).getSex() + ", " + person.getGrandChildren().get(i).getAge() + " years old.");
         }
 
-        System.out.println("\nPets of the grandchildren:");
-        System.out.println("Emily's pet: " + emily.getPets().get(0).getName());
-        System.out.println("Nica's pet: " + nica.getPets().get(0).getName());
+        //bonusexercise 1
+        //arrange
+        Pet pet1 = new Pet("Wooof", 2, "cavia");
+        Pet pet2 = new Pet("Boooo", 3, "cavia");
+        //act
+        grandChild1.addPet(pet1);
+        grandChild2.addPet(pet2);
+        //sout
+        System.out.println("\nPets of the grandchildren of " + person.getName() + ":");
+        person.getPetsFromGrandChildren(person);
 
-        panc.getPetsFromGrandChildren(panc);
-        for (int i = 0; i < panc.getGrandChildren().size(); i++) {
-            System.out.println(panc.getPetsFromGrandChildren(panc).get(i));
+        //bonusexercise 2
+        //arrange
+        System.out.println("\nNieces of " + person.getName() + ":");
+        Person olivia = new Person("Olivia", "Doe", "F", 86);
+        Person emma = new Person("Emma", "Doe", "F", 56);
+        Person charlotte = new Person("Charlotte", "Doe", "F", 56);
+        Person liam = new Person("Liam", "Doe", "M", 52);
+        //act
+        olivia.addChild(emma);
+        olivia.addChild(charlotte);
+        olivia.addChild(liam);
+        person.addSibling(olivia);
+        //sout
+        for (int i = 0; i < person.getNiecesFromPerson(person).size(); i++) {
+            System.out.println(person.getNiecesFromPerson(person).get(i).getName());
         }
+
+        //bonusexercise 3
+        System.out.println("\nPartner of " + person.getName() + ":");
+        //arrange
+        Person jane = new Person("Jane", "Doe", "F", 77);
+        //act
+        person.addPartner(jane);
+        //sout
+        System.out.println(person.getPartner().getName());
     }
 }
+
