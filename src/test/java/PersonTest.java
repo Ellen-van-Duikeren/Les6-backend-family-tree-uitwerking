@@ -3,9 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTest {
 
@@ -75,7 +73,6 @@ public class PersonTest {
 
     @Test
     public void whenSetPartnerAPartnerShouldBeSet() {
-        Person person = new Person();
         Person partner = new Person();
         partner.setPartner(partner);
         assertEquals(partner, partner.getPartner());
@@ -96,8 +93,8 @@ public class PersonTest {
         Person father = new Person();
         Person mother = new Person();
         person.addParents(father, mother);
-        assertEquals(father, person.getFather());
-        assertEquals(mother, person.getMother());
+        assertEquals(father.getName(), person.getFather().getName());
+        assertEquals(mother.getName(), person.getMother().getName());
     }
 
     @Test
@@ -105,7 +102,7 @@ public class PersonTest {
         Person person = new Person();
         Person father = new Person();
         person.setFather(father);
-        assertEquals(father, person.getFather());
+        assertEquals(father.getName(), person.getFather().getName());
     }
 
     @Test
@@ -113,7 +110,7 @@ public class PersonTest {
         Person person = new Person();
         Person mother = new Person();
         person.setMother(mother);
-        assertEquals(mother, person.getMother());
+        assertEquals(mother.getName(), person.getMother().getName());
     }
 
     @Test
@@ -238,4 +235,51 @@ public class PersonTest {
         assertEquals(expectedListSiblings, person.getNiecesFromPerson(person));
     }
 
+    @Test
+    public void testAddChildrenToPartner() {
+        //arrange
+        Person person = new Person();
+        Person partner = new Person();;
+        Person child = new Person();
+        Person child2 = new Person();
+        //act
+        person.addPartner(partner);
+        person.addChild(child);
+        person.addChild(child2);
+        person.addChildrenToPartner(person);
+        //assert
+        assertEquals(person.getChildren(), partner.getChildren());
+    }
+
+    @Test
+    public void testAddGrandChildrenToPartner() {
+        //arrange
+        Person person = new Person();
+        Person partner = new Person();;
+        Person grandChild = new Person();
+        Person grandChild2 = new Person();
+        //act
+        person.addPartner(partner);
+        person.addGrandChildren(grandChild);
+        person.addGrandChildren(grandChild2);
+        person.addGrandChildrenToPartner(person);
+        //assert
+        assertEquals(person.getGrandChildren(), partner.getGrandChildren());
+    }
+
+    @Test
+    public void testAddSiblingsToPartner() {
+        //arrange
+        Person person = new Person();
+        Person partner = new Person();;
+        Person sibling = new Person();
+        Person sibling2 = new Person();
+        //act
+        person.addPartner(partner);
+        person.addSibling(sibling);
+        person.addSibling(sibling2);
+        person.addSiblingsToPartner(person);
+        //assert
+        assertEquals(person.getSiblings(), partner.getSiblings());
+    }
 }

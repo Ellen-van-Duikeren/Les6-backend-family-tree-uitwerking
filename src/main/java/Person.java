@@ -40,6 +40,7 @@ public class Person {
         this.age = 25;
     }
 
+    //zelfde als setPartner
     public void addPartner(Person partner) {
         this.partner = partner;
     }
@@ -52,6 +53,30 @@ public class Person {
 
     public void addChild(Person child) {
         children.add(child);
+    }
+
+    public void addChildrenToPartner(Person person) {
+        if (partner != null) {
+            for (int i = 0; i < children.size(); i++) {
+                partner.addChild(children.get(i));
+            }
+        }
+    }
+
+    public void addGrandChildrenToPartner(Person person) {
+        if (partner != null) {
+            for (int i = 0; i < grandChildren.size(); i++) {
+                partner.addGrandChildren(grandChildren.get(i));
+            }
+        }
+    }
+
+    public void addSiblingsToPartner(Person person) {
+        if (partner != null) {
+            for (int i = 0; i < siblings.size(); i++) {
+                partner.addSibling(siblings.get(i));
+            }
+        }
     }
 
     public void addPet(Pet pet) {
